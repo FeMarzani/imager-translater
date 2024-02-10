@@ -140,3 +140,5 @@ terraform.tfstate
 terraform.tfstate.backup
 .terraform
 
+# Removing Some Files
+teste.jpg
