@@ -7,7 +7,7 @@ from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 
 # Cliente OpenAI
-client = OpenAI(api_key="COLOCAR CHAVE DA API AQUI")
+client = OpenAI(api_key="COLOCAR CHAVE DE API AQUI")
 
 app = Flask(__name__)
 
