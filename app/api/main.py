@@ -1,33 +1,53 @@
 # Importanto Bibliotecas
 import requests
 from pathlib import Path
+from openai import OpenAI
 
-# Definindo URL da API para extrair texto de imagem
-api_url = 'COLOCAR URl DA API AQUI'
+def text_extract(arqu_path):
 
-# Abrindo uma imagem em uma variável para usar no corpo da requisição
-image_file_descriptor = open('teste.jpg', 'rb')
+    # Definindo URL da API para extrair texto de imagem
+    api_key = 'COLOCAR CHAVE DA API AQUI'
 
-print(image_file_descriptor)
+    # Abrindo uma imagem em uma variável para usar no corpo da requisição
+    image_file_descriptor = open(arqu_path, 'rb')
 
-# Formatando um JSON para a requisição
-files = {'image': image_file_descriptor}
+    print(image_file_descriptor)
 
-# Formatando um header para adicionar a chave da API
-api_key = 'COLOCAR A CHAVE DA API AQUI'
-headers = {'X-Api-Key': api_key}
+    # Formatando um JSON para a requisição
+    files = {'image': image_file_descriptor}
 
-# Realizando o POST para text extract
-r = requests.post(api_url, files=files, headers=headers)
+    # Formatando um header para adicionar a chave da API
+    api_url = 'COLOCAR URL DA API AQUI'
+    headers = {'X-Api-Key': api_key}
 
-# Formatando a response em formato de JSON
-json_extract = r.json()
+    # Realizando o POST para text extract
+    r = requests.post(api_url, files=files, headers=headers)
 
-# Formatando o texto através de uma estrutura de repetição
-texto_formatado = ""
+    # Formatando a response em formato de JSON
+    json_extract = r.json()
 
-for i in range(len(json_extract)):
-    palavra = json_extract[i]['text']
-    texto_formatado += palavra + ' '
+    # Formatando o texto através de uma estrutura de repetição
+    texto_formatado = ""
 
-print(texto_formatado)
+    for i in range(len(json_extract)):
+        palavra = json_extract[i]['text']
+        texto_formatado += palavra + ' '
+
+    return texto_formatado
+
+def text_translate(texto_formatado):
+
+    # Cliente OpenAI
+    client = OpenAI(api_key="COLOCAR CHAVE DA API AQUI")
+
+    messages = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "user", "content": f'Traduza a seguinte frase para o português: {texto_formatado}'}
+        ]
+    )
+
+    # Retorna o resumo gerado
+    messages = messages.choices[0].message.content
+
+    return messages
