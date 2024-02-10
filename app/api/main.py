@@ -1,5 +1,6 @@
 # Importanto Bibliotecas
 import requests
+import io
 from pathlib import Path
 from openai import OpenAI
 from flask import Flask, request, jsonify, send_file
@@ -20,13 +21,8 @@ def text_extract(arqu_path):
     # Definindo URL da API para extrair texto de imagem
     api_key = 'COLOCAR CHAVE DA API AQUI'
 
-    # Abrindo uma imagem em uma variável para usar no corpo da requisição
-    image_file_descriptor = open(arqu_path, 'rb')
-
-    print(image_file_descriptor)
-
     # Formatando um JSON para a requisição
-    files = {'image': image_file_descriptor}
+    files = {'image': arqu_path}
 
     # Formatando um header para adicionar a chave da API
     api_url = 'COLOCAR URL DA API AQUI'
@@ -76,9 +72,10 @@ def speech():
     if image.filename == '':
         return jsonify({'error': 'Nome do arquivo vazio'}), 400
 
-    # Salvando temporariamente o arquivo em um caminho
-    arqu_path = 'temp_image.jpg'
+    # Lendo o arquivo diretamente na memória.
+    arqu_path = io.BytesIO()
     image.save(arqu_path)
+    arqu_path.seek(0)
 
     # Extraindo texto da imagem.
     texto_formatado = text_extract(arqu_path)
