@@ -3,15 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste de Envio de Imagem</title>
+    <title>Imager Converter</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="icon" href="https://freeiconshop.com/wp-content/uploads/edd/image-outline-filled.png" type="image/png">
 </head>
 <body>
-    <h1>Teste de Envio de Imagem</h1>
+    <h1>Traduza e converta sua imagem em áudio!</h1>
     <form action="http://localhost:5000/traducao" method="POST" enctype="multipart/form-data">
-        <label for="imagem">Selecione uma imagem:</label><br>
+        <label for="imagem">Clique para selecionar uma imagem:</label><br>
         <input type="file" id="imagem" name="image"><br><br>
         <input type="submit" value="Enviar Imagem">
     </form>
+
+    <div id="retorno" style="display: none;">
+        <p>Seu áudio está sendo baixado. Por favor, aguarde...</p>
+    </div>
+
+    <script src="js/script.js"></script>
+    
 </body>
 </html>
