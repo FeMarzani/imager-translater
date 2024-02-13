@@ -11,7 +11,7 @@
     <h1>Traduza e converta sua imagem em áudio!</h1>
     <form action="http://localhost:5000/traducao" method="POST" enctype="multipart/form-data">
         <label for="imagem">Clique para selecionar uma imagem:</label><br>
-        <input type="file" id="imagem" name="image"><br><br>
+        <input type="file" id="imagem" name="image" onchange="exibirNomeArquivo(this)"><br><span id="nome-arquivo"></span><br>
         <input type="submit" value="Enviar Imagem">
     </form>
 
@@ -20,6 +20,6 @@
     </div>
 
     <script src="js/script.js"></script>
-    
+
 </body>
 </html>

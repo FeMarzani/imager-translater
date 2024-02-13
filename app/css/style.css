@@ -26,7 +26,7 @@ form:hover {
     border-color: #454cad;
 }
 
-form label {
+form label, form span {
     display: block;
     margin-bottom: 10px;
     color: #5f6982;
